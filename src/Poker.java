@@ -48,7 +48,7 @@ public class Poker {
         
 
         System.out.println("Dealers hand: " + dealerCard1 + " and " + dealerCard2);
-        System.out.println("Players hand: " + playerCard1 + " and " + playerCard2);
+        System.out.println("Players hand: " + playerCard1 + " and " + playerCard2 + "\n");
         
         newComunity.dealFlop(deckOfCards);
         String flop = newComunity.getComunityString();
@@ -56,15 +56,16 @@ public class Poker {
 
         newComunity.dealTurnandRiver(deckOfCards);
         String comunityCards = newComunity.getComunityString();
-        System.out.println("Comunity: " + comunityCards);
+        System.out.println("Comunity: " + comunityCards + "\n");
 
         PokerHand playerPoekrHand = new PokerHand(playerHand, newComunity);
         //playerPoekrHand.print();
         playerPoekrHand.sort();
         playerPoekrHand.print();     
-        playerPoekrHand.countSuit();
-        playerPoekrHand.countNominals();
-        playerPoekrHand.checkPair();
+       // playerPoekrHand.countSuit();
+        //playerPoekrHand.countNominals();
+        //playerPoekrHand.checkPair();
+        //playerPoekrHand.checkTwoPairs();
         //playerPoekrHand.checkStraight();
         PokerHand dealerrPoekrHand = new PokerHand(dealerHand, newComunity);
         //dealerrPoekrHand.print();
@@ -72,30 +73,39 @@ public class Poker {
         
         int m = 10;
         int i = 0;
+        int k = 0;
 /*         for (Card card : dealerrPoekrHand.PokerHand){
             card.value = m;
             m++;
-        }
-        for (Card card : dealerrPoekrHand.PokerHand){
+        } */
+/*         for (Card card : dealerrPoekrHand.PokerHand){
             card.suit = "Spade";
-            m++;
-        }     */
+            
+            
+            if(k == 2 || k ==6){
+                card.suit = "Clubs";
+            }
+            k++;
+        }     
         for (Card card : dealerrPoekrHand.PokerHand){
             if (i <3){
             card.value = m;
             i++;
             }
-        }
-        dealerrPoekrHand.countNominals();
-        dealerrPoekrHand.checkQuadsAndTrips(3);
+        } */
+        //dealerrPoekrHand.countNominals();
+        //dealerrPoekrHand.checkQuadsAndTrips(3);
 
-        dealerrPoekrHand.countSuit();   
+        //dealerrPoekrHand.countSuit();   
         dealerrPoekrHand.sort();
         dealerrPoekrHand.print();
-        dealerrPoekrHand.checkPair();
-        if (dealerrPoekrHand.checkStraight(dealerrPoekrHand.getPokerHand())){
-            System.out.print("STRAIGHTTT");
-        }
+        playerPoekrHand.printCombination("Players");
+        dealerrPoekrHand.printCombination("Dealers");
+        //dealerrPoekrHand.checkPair();
+        //dealerrPoekrHand.checkTwoPairs();
+        //if (dealerrPoekrHand.checkStraight(dealerrPoekrHand.getPokerHand())){
+        //    System.out.print("STRAIGHTTT");
+        //}
         
         //System.out.println(deckOfCards.getDeck());
     }
