@@ -1,4 +1,6 @@
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -9,12 +11,13 @@ public class PokerHand extends Hand   {
     private Card PokerHandTrimmed[] = new Card[5];
 
     int TwoPairs[] = new int[2];
-    private int pairStrength = 0;
-    private int kicker1      = 0;
-    private int kicker2      = 0;
+    private int pairStrength    = 0;
+    private int kicker1         = 0;
+    private int kicker2         = 0;
+    private int combinationRank = 0;
 
     private HashMap <String, Integer>  suitAmount     = new HashMap<>();
-    private HashMap <Integer, Integer> nominalAmount  = new HashMap<>();
+    private TreeMap <Integer, Integer> nominalAmount  = new TreeMap<>(Collections.reverseOrder());
 
     private boolean hasAce              = false; //ready
     private boolean isPair              = false; //ready no kicker check 
@@ -43,9 +46,10 @@ public class PokerHand extends Hand   {
         }
     }
 
-    void printCombination(String position){
+    String printCombination(String position){
         String combination = determineCombination();
         System.out.println( position +" combination is " + combination);
+        return combination;
     }
 
 
@@ -57,49 +61,60 @@ public class PokerHand extends Hand   {
         this.isStraightFlush = countSuit();
         this.isStraight = checkStraight(this.PokerHand);
         countNominals();
+        trim(0,4, "nominal");
 
         if (this.hasAce & this.isFlush & this.isStraight){
             message = "Royal";
+            this.combinationRank = 10;
             return message;
         }
         //checkStraightFlush();
         if (isStraightFlush){
             message = "Straight Flush";
+            this.combinationRank = 9;
             return message;
         }
         this.isQuads = checkQuadsAndTrips(4);
         if (isQuads){
             message = "Quads";
+            this.combinationRank = 8;
             return message;
         }
         if(this.isFlush){
             message = "Flush";
+            this.combinationRank = 6;
             return message;
         }      
         if (this.isStraight){
             message = "Straight";
+            this.combinationRank = 5;
             return message;
         }
 
         this.istThreeOfKind = checkQuadsAndTrips(3);
         if(this.istThreeOfKind){
             message = "Trips";
+            this.combinationRank = 4;
             return message;
         }
 
         this.isTwoPair = checkTwoPairs();
         if (this.isTwoPair){
             message = "Two Pairs";
+            this.combinationRank = 3;
             return message;           
         }
 
         this.isPair = checkPair();
         if(this.isPair){
             message = "Pair";
+            this.combinationRank = 2;
+            //this.pairStrength = 
             return message;             
         }else{
-            int highCard = this.PokerHand[0].getValue();
-            message = "" + highCard;
+            String highCard = numToPicture(PokerHand, this.PokerHand[0].getValue(), 0);
+            message = "highcard of " + highCard;
+            this.combinationRank = 1;
         }
 
         return message;
@@ -131,6 +146,8 @@ public class PokerHand extends Hand   {
         int nominal1 = 0;
         int nominal2 = 0;
         boolean checker = false;
+        //Map<String, Integer> decendingNominalAmount = new TreeMap<>(Collections.reverseOrder());
+
         //Card[] twoPairs = new Card[2];
         for (Entry<Integer, Integer> entry : nominalAmount.entrySet()){
             if (entry.getValue() == 2){
@@ -143,7 +160,11 @@ public class PokerHand extends Hand   {
                     this.TwoPairs[1] = nominal2;
                     amount++;
                     //System.out.println("Two pairs of " + nominal1 + " and " + nominal2);
-                }
+                }/* else if (nominal1 < entry.getKey()){
+                    nominal1 = entry.getKey();
+                }else if (nominal2 < entry.getKey()){
+                    nominal2 = entry.getKey();
+                } */
             }
         }
         if (amount == 2){
@@ -152,6 +173,7 @@ public class PokerHand extends Hand   {
         return checker;
 
     }
+
 
 
     private boolean checkPair(){
@@ -207,11 +229,11 @@ public class PokerHand extends Hand   {
                 trim(straightStartPos,straightEndtPos, "nominal");
                 //System.out.println("\n\nSTRAIGHT\n\n");
                 
-            }else if (isFlush){
-                if(cardCollection[cardCollection.length - 2].getValue() - cardCollection[cardCollection.length - 1].getValue() == 1){
-                    checker = true;
-                }
-            }
+            }//else if (isFlush){
+              //  if(cardCollection[cardCollection.length - 2].getValue() - cardCollection[cardCollection.length - 1].getValue() == 1){
+              //      checker = true;
+              //  }
+            //}
         }
         return checker;
         
@@ -306,9 +328,9 @@ public class PokerHand extends Hand   {
             }
             i++;
         }
-        for (Card card : this.PokerHandTrimmed){
-            System.out.println(card.getValue() + " " + card.getSuit());
-        }
+       // for (Card card : this.PokerHandTrimmed){
+        //    System.out.println(card.getValue() + " " + card.getSuit());
+        //}
         
         //for (Card card : this.PokerHandTrimmed){
        //     System.out.println(card.getValue() + card.getSuit());
@@ -316,6 +338,39 @@ public class PokerHand extends Hand   {
         
     }
 
+    int getTwoPairKicker (){
+        return this.PokerHand[4].getValue();
+    }
+
+    int[] validateKicker (int[] kickers){
+
+        int[] validKickers = new int[2];
+        int kicker1 = 0;
+        int kicker2 = 0;
+
+        for (Card card : this.PokerHandTrimmed){
+            if (card.getValue() == kickers[0]){
+                kicker1 = card.getValue();
+            } 
+            if (card.getValue() == kickers[1]){
+                kicker2 = card.getValue();
+            }            
+        }
+        if (kicker1 > kicker2){
+            validKickers[0] = kicker1;
+            validKickers[1] = kicker2;
+        }else if (kicker1 < kicker2){
+            validKickers[0] = kicker2;
+            validKickers[1] = kicker1;           
+        }else if (kicker1 == kicker2){
+            validKickers[0] = kicker2;
+            validKickers[1] = kicker1;           
+        }else{
+            validKickers[0] = 0;
+            validKickers[1] = 0;          
+        }
+        return validKickers;
+    }
     private void checkStraightFlush(){
          if (checkStraight(this.PokerHandTrimmed)){
             this.isStraightFlush = true;
@@ -331,6 +386,16 @@ public class PokerHand extends Hand   {
             
         }
         System.out.println("Pokerhand: " + pokerHandString);
+    }
+
+    int getRank(){
+        return this.combinationRank;
+    }
+    int[] getTwoPairValue (){
+        return this.TwoPairs;
+    }
+    int getPairValue(){
+        return this.pairStrength;
     }
     Card [] getPokerHand(){
         return this.PokerHand;

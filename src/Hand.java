@@ -38,7 +38,23 @@ public class Hand {
     }
 
     
-    String getHandString(int i){
+    int[] getkKickers(){
+        int[] kickers = new int[2];
+        if (this.hand[0].getValue() > this.hand[1].getValue()){
+            kickers[0] = this.hand[0].getValue();
+            kickers[1] = this.hand[1].getValue();
+        }else if (this.hand[0].getValue() < this.hand[1].getValue()){
+            kickers[0] = this.hand[1].getValue();
+            kickers[1] = this.hand[0].getValue();        
+        }else{
+            // Both are equal
+            kickers[0] = this.hand[1].getValue();
+            kickers[1] = this.hand[0].getValue();         
+        }
+        return kickers;
+    }
+
+    String  getHandString(int i){
         createPictureNominals();
         int cardValue = this.hand[i].getValue();
         String handString = numToPicture(this.hand, cardValue, i);
