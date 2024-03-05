@@ -1,8 +1,8 @@
 public class Comunity extends Hand {
     Card comunityCards[] = new Card[5];
 
-    boolean flopDealt = false;
-    boolean TurnDealt = false;
+    private boolean flopDealt = false;
+    private boolean TurnDealt = false;
 
     void addCard(Deck deck, int startPos, int endPos){
         for (int i = startPos; i<=endPos; i++){

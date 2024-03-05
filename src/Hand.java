@@ -2,12 +2,12 @@ import java.util.HashMap;
 
 public class Hand {
     
-     public Card hand[] = new Card[2];
-     HashMap<Integer, String> pictureNominals = new HashMap<>();
+     private Card hand[] = new Card[2];
+     private HashMap<Integer, String> pictureNominals = new HashMap<>();
      
      
 
-     void createPictureNominals (){
+      void createPictureNominals (){
         String[] pictures = {"J", "Q", "K", "A"};
         int i = 11;
         for (String picture : pictures){
@@ -16,7 +16,7 @@ public class Hand {
         }
      }
      
-     String numToPicture(Card [] cardCollection, int value, int i){
+      String numToPicture(Card [] cardCollection, int value, int i){
         String handString = "";
         if (value >= 11){
             

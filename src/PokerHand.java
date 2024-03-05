@@ -5,27 +5,27 @@ import java.util.Comparator;
 import java.util.Map.Entry;
 
 public class PokerHand extends Hand   {
-    Card PokerHand[]        = new Card[7];
-    Card PokerHandTrimmed[] = new Card[5];
+    private Card PokerHand[]        = new Card[7];
+    private Card PokerHandTrimmed[] = new Card[5];
 
     int TwoPairs[] = new int[2];
-    int pairStrength = 0;
-    int kicker1      = 0;
-    int kicker2      = 0;
+    private int pairStrength = 0;
+    private int kicker1      = 0;
+    private int kicker2      = 0;
 
     private HashMap <String, Integer>  suitAmount     = new HashMap<>();
     private HashMap <Integer, Integer> nominalAmount  = new HashMap<>();
 
-    boolean hasAce              = false; //ready
-    boolean isPair              = false; //ready no kicker check 
-    boolean isFlush             = false; //ready no kicker check 
-    boolean isQuads             = false; //ready no kicker check 
-    boolean isRoyal             = false; 
-    boolean isTwoPair           = false; //ready no kicker check
-    boolean isStraight          = false; //ready no kicker check 
-    boolean isFullHouse         = false;
-    boolean istThreeOfKind      = false; //ready no kicker check 
-    boolean isStraightFlush     = false; //ready 
+    private boolean hasAce              = false; //ready
+    private boolean isPair              = false; //ready no kicker check 
+    private boolean isFlush             = false; //ready no kicker check 
+    private boolean isQuads             = false; //ready no kicker check 
+    private boolean isRoyal             = false; 
+    private boolean isTwoPair           = false; //ready no kicker check
+    private boolean isStraight          = false; //ready no kicker check 
+    private boolean isFullHouse         = false;
+    private boolean istThreeOfKind      = false; //ready no kicker check 
+    private boolean isStraightFlush     = false; //ready 
     
     
 
@@ -107,7 +107,7 @@ public class PokerHand extends Hand   {
     }
 
 
-    boolean checkAce(){
+    private boolean checkAce(){
         boolean checker = false;
         for(Card card : PokerHand){
             if (card.getValue() == 14){
@@ -117,7 +117,7 @@ public class PokerHand extends Hand   {
         return checker;
     }
 
-    boolean checkRoyal() {
+    private boolean checkRoyal() {
         boolean checker = false;
         if (hasAce & isStraightFlush){
             checker = true;
@@ -125,7 +125,7 @@ public class PokerHand extends Hand   {
         return checker;
     }
 
-    boolean checkTwoPairs (){
+    private boolean checkTwoPairs (){
         sort();
         int amount = 0;
         int nominal1 = 0;
@@ -154,7 +154,7 @@ public class PokerHand extends Hand   {
     }
 
 
-    boolean checkPair(){
+    private boolean checkPair(){
         int nominal = 0;
         boolean checker = false;
         int amount = 0;
@@ -174,7 +174,7 @@ public class PokerHand extends Hand   {
         }    
         return checker;   
     }
-    boolean checkQuadsAndTrips(int amount){
+    private boolean checkQuadsAndTrips(int amount){
         int nominal = 0;
         boolean checker = false;
         for (Entry<Integer, Integer> entry : nominalAmount.entrySet()){
@@ -189,7 +189,7 @@ public class PokerHand extends Hand   {
     }
 
 
-    boolean checkStraight(Card[] cardCollection){
+    private boolean checkStraight(Card[] cardCollection){
         int counter          = 0;
         int straightStartPos = 0;
         int straightEndtPos  = 0;
@@ -217,7 +217,7 @@ public class PokerHand extends Hand   {
         
     }
     
-    boolean countSuit (){
+    private boolean countSuit (){
         sort();
         boolean checker = false;
         for (Card card : this.PokerHand){
@@ -245,7 +245,7 @@ public class PokerHand extends Hand   {
         //System.out.println(this.suitAmount);
     }
     
-    void countNominals (){
+    private void countNominals (){
         
         for (Card card : this.PokerHand){
             int nominal = card.getValue(); 
@@ -278,7 +278,7 @@ public class PokerHand extends Hand   {
         
     }
 
-    void trim(int start, int end, String target){
+    private void trim(int start, int end, String target){
         int i = 0;
         int n = 0;
         String suit = "";
@@ -316,7 +316,7 @@ public class PokerHand extends Hand   {
         
     }
 
-    void checkStraightFlush(){
+    private void checkStraightFlush(){
          if (checkStraight(this.PokerHandTrimmed)){
             this.isStraightFlush = true;
          }

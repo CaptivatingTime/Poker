@@ -1,6 +1,6 @@
 import java.util.ArrayList; 
 public class Deck {
-    public ArrayList<Card> Cards = new ArrayList<>();
+    private  ArrayList<Card> Cards = new ArrayList<>();
     
     void createDeck(){
         String[] suits = {"Diamonds", "Spades", "Hearts", "Clubs"};
