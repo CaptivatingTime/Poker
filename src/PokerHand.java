@@ -170,7 +170,7 @@ public class PokerHand extends Hand   {
         }
         if (amount == 1){
             checker = true;
-            System.out.println("Pair of " + nominal);
+            //System.out.println("Pair of " + nominal);
         }    
         return checker;   
     }
@@ -233,11 +233,11 @@ public class PokerHand extends Hand   {
                     trim(0,6, "suit");
                     checkStraightFlush();
                     if (this.isStraightFlush){
-                        System.out.println("STRAIGHT FLUSH!!!!!!!!!!!!!!!!!!");
+                        //System.out.println("STRAIGHT FLUSH!!!!!!!!!!!!!!!!!!");
                         checker = true;
                     }
                     
-                    System.out.println("Flush of " + suit);
+                    //System.out.println("Flush of " + suit);
                 }
             }
         }
