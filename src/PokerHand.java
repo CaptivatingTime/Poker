@@ -7,8 +7,8 @@ import java.util.Comparator;
 import java.util.Map.Entry;
 
 public class PokerHand extends Hand   {
-    private Card PokerHand[]        = new Card[7];
-    private Card PokerHandTrimmed[] = new Card[5];
+     Card PokerHand[]        = new Card[7];
+     Card PokerHandTrimmed[] = new Card[5];
 
     int TwoPairs[] = new int[2];
     private int pairStrength    = 0;
@@ -16,6 +16,7 @@ public class PokerHand extends Hand   {
     private int kicker2         = 0;
     private int combinationRank = 0;
 
+    
     private HashMap <String, Integer>  suitAmount     = new HashMap<>();
     private TreeMap <Integer, Integer> nominalAmount  = new TreeMap<>(Collections.reverseOrder());
 
@@ -23,7 +24,6 @@ public class PokerHand extends Hand   {
     private boolean isPair              = false; //ready no kicker check 
     private boolean isFlush             = false; //ready no kicker check 
     private boolean isQuads             = false; //ready no kicker check 
-    private boolean isRoyal             = false; 
     private boolean isTwoPair           = false; //ready no kicker check
     private boolean isStraight          = false; //ready no kicker check 
     private boolean isFullHouse         = false;
@@ -57,13 +57,14 @@ public class PokerHand extends Hand   {
     String determineCombination(){
         String message = "unknown";
         sort();
-        this.hasAce = checkAce();
         this.isStraightFlush = countSuit();
         this.isStraight = checkStraight(this.PokerHand);
         countNominals();
         trim(0,4, "nominal");
+        this.hasAce = checkAce();
+        this.isFullHouse = checkFullHouse();
 
-        if (this.hasAce & this.isFlush & this.isStraight){
+        if (this.hasAce & this.isStraightFlush){
             message = "Royal";
             this.combinationRank = 10;
             return message;
@@ -80,6 +81,11 @@ public class PokerHand extends Hand   {
             this.combinationRank = 8;
             return message;
         }
+        if (isFullHouse){
+            message = "Full House";
+            this.combinationRank = 7;
+            return message;
+        }       
         if(this.isFlush){
             message = "Flush";
             this.combinationRank = 6;
@@ -121,11 +127,35 @@ public class PokerHand extends Hand   {
 
     }
 
+    private boolean checkFullHouse(){
+        boolean checker = false;
+        boolean hasTrips = false;
+        boolean hasPair = false;
+        for (Map.Entry<Integer, Integer> entry : nominalAmount.entrySet()){
+            if (entry.getValue() == 3){
+                hasTrips = true;
+            }
+            if (entry.getValue() == 2){
+                hasPair = true;
+            }
+        }
+        if (hasTrips && hasPair){
+            checker = true;
+        }
+        return checker;
+    }
 
     private boolean checkAce(){
         boolean checker = false;
-        for(Card card : PokerHand){
-            if (card.getValue() == 14){
+        String neededSuit = "";
+        //Find suit that is 5 times in pokerhand
+        for (Map.Entry<String, Integer> entry : suitAmount.entrySet()){
+            if (entry.getValue() == 5){
+                neededSuit = entry.getKey();
+            }
+        }
+        for(Card card : PokerHandTrimmed){
+            if (card.getValue() == 14 && card.getSuit().equals(neededSuit)){
                 checker = true;
             }
         }
@@ -139,6 +169,8 @@ public class PokerHand extends Hand   {
         }
         return checker;
     }
+
+
 
     private boolean checkTwoPairs (){
         sort();
@@ -215,14 +247,21 @@ public class PokerHand extends Hand   {
         int counter          = 0;
         int straightStartPos = 0;
         int straightEndtPos  = 0;
+        int reqAmount = 0;
         boolean checker = false;
+
+        if(isFlush){
+            reqAmount = 4;
+        }else{
+            reqAmount = 5;
+        }
         for(int i = 1; i < cardCollection.length; i++){
             if (cardCollection[i-1].getValue() - cardCollection[i].getValue()  == 1){
                 counter++;
             }else{
                 counter = 0;
             }
-            if (counter == 5){
+            if (counter == reqAmount){
                 checker = true;
                 straightEndtPos = i - 1;
                 straightStartPos = straightEndtPos - 4;
@@ -313,13 +352,13 @@ public class PokerHand extends Hand   {
 
         
         for (Card card : this.PokerHand){
-            if (start <= i & i <= end ){
+            if (start <= i && i <= end ){
                 if (target == "nominal"){
                     this.PokerHandTrimmed[n] = card;
                     n++;
                 }else if (target == "suit"){
-                    if (start <= i & i <= end & i <7 ){
-                        if (card.getSuit() == suit){
+                    if (start <= i && i <= end && i <7 ){
+                        if (card.getSuit() == suit && n < 5){
                             this.PokerHandTrimmed[n] = card;
                             n++;
                         }                           
@@ -377,7 +416,7 @@ public class PokerHand extends Hand   {
          }
     }
     
-    void print(){
+    void print(String side){
         String pokerHandString = "" ;
         createPictureNominals();
         for (int i = 0; i < 7; i++){
@@ -385,7 +424,7 @@ public class PokerHand extends Hand   {
             pokerHandString = pokerHandString + " " + numToPicture(this.PokerHand, cardValue, i);
             
         }
-        System.out.println("Pokerhand: " + pokerHandString);
+        System.out.println(side + " Pokerhand: " + pokerHandString);
     }
 
     int getRank(){

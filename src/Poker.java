@@ -32,18 +32,24 @@ public class Poker {
 
     }
     public static void dealInitials(Deck deckOfCards, Hand dealerHand, Hand playerHand){
-        Card drawnCard = deckOfCards.drawCard();
-        dealerHand.addCard(drawnCard);
+        Card drawnCard1 = deckOfCards.drawCard();
+        playerHand.addCard(drawnCard1);
         Card drawnCard2 = deckOfCards.drawCard();
         dealerHand.addCard(drawnCard2);
         Card drawnCard3 = deckOfCards.drawCard();
         playerHand.addCard(drawnCard3);
         Card drawnCard4 = deckOfCards.drawCard();
-        playerHand.addCard(drawnCard4);
+        dealerHand.addCard(drawnCard4);
+
+ 
     }
     public static void main(String[] args) throws Exception {
-        
-        
+     int times = 0;
+     int playerWinAmount = 0;
+     int dealerWinAmount = 0;
+     int push = 0;
+     while (times <100000){
+        times++;
         Deck deckOfCards = new Deck();
         Hand dealerHand = new Hand();
         Hand playerHand = new Hand();
@@ -88,7 +94,10 @@ public class Poker {
         
 
         playerPokerHand.sort();
-        playerPokerHand.print(); 
+
+
+        
+        playerPokerHand.print("Players"); 
 
         PokerHand dealerrPokerHand = new PokerHand(dealerHand, newComunity);
 
@@ -96,7 +105,7 @@ public class Poker {
 
 
         dealerrPokerHand.sort();
-        dealerrPokerHand.print();
+        dealerrPokerHand.print("Dealers");
         String combination_player = playerPokerHand.printCombination("\nPlayers");
 
 
@@ -104,10 +113,17 @@ public class Poker {
 
         if(playerPokerHand.getRank() > dealerrPokerHand.getRank()){
             System.out.println("\nPLAYER WINS!!!");
+            playerWinAmount++;
+              if (playerPokerHand.getRank() == 7){
+                times = 100000;
+            }  
 
         }else if (playerPokerHand.getRank() < dealerrPokerHand.getRank()){
             System.out.println("\nDealer wins :( ");
-
+            dealerWinAmount++;
+              if (dealerrPokerHand.getRank() == 7){
+                times = 100000;
+            }  
 
 
 
@@ -128,29 +144,49 @@ public class Poker {
             
             if (playerPokerHand.getPairValue() > dealerrPokerHand.getPairValue()){
                 System.out.println("PLAYER WINS with better pair!!!");
+                playerWinAmount++;
             }else if (playerPokerHand.getPairValue() < dealerrPokerHand.getPairValue()){
                 System.out.println("DEALER WINS with better pair!!!");
-            }else if (combination_player == "Two Pairs" & combination_dealer == "Two Pairs"){
+                dealerWinAmount++;
+            }else if (combination_player == "Two Pairs" && combination_dealer == "Two Pairs"){
                 int twoPairKicker_Player = playerPokerHand.getTwoPairKicker();
                 int twoPairKicker_Dealer = dealerrPokerHand.getTwoPairKicker();
+                // Salīdzina pārus, ja abiem ir divu pāru kombinācija
                 if(twoPairs_Player[0] > twoPairs_Dealer[0]){
                     System.out.println("PLAYER WINS with better TWO pairs!!!");
+                    playerWinAmount++;
                 }else if (twoPairs_Player[0] < twoPairs_Dealer[0]){
+
                     System.out.println("DEALER WINS with better TWO pairs!!!");
                 }else if (twoPairs_Player[1] > twoPairs_Dealer[1]){
+
                     System.out.println("PLAYER WINS with better TWO pairs!!!");
+                    playerWinAmount++;
                 }else if(twoPairs_Player[1] < twoPairs_Dealer[1]){
+                    
                     System.out.println("DEALER WINS with better TWO pairs!!!");
                 }else if ( twoPairKicker_Player > twoPairKicker_Dealer){
+
                     System.out.println("PLAYER WINS with same TWO pairs but better kicker!!!");
+                    playerWinAmount++;
                 }else if (twoPairKicker_Player < twoPairKicker_Dealer){
+
                     System.out.println("DEALER WINS with same TWO pairs but better kicker!!!");
+                    playerWinAmount++;
                 }else{
                     System.out.println("Same two pairs and same kicker. It is a push!");
+                    push++;
                 }
             }else{
 
             String winner = compareKickers(validKickers_Player[0], validKickers_Player[1], validKickers_Dealer[0], validKickers_Dealer[1]);
+            if (winner == "player"){
+                playerWinAmount++;
+            }else if (winner == "dealer"){
+                dealerWinAmount++;
+            }else{
+                push++;
+            }
             System.out.println(winner + " wins with kicker ");
             }
             
@@ -158,6 +194,10 @@ public class Poker {
 
 
         }
+
+         System.out.println(times);
+    }
+    System.out.println("Player wins: "+ playerWinAmount + "\nDealer Wins: " + dealerWinAmount + "\nPush: " + push);
         //dealerrPoekrHand.checkPair();
         //dealerrPoekrHand.checkTwoPairs();
         //if (dealerrPoekrHand.checkStraight(dealerrPoekrHand.getPokerHand())){

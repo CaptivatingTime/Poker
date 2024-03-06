@@ -1,5 +1,5 @@
 public class Comunity extends Hand {
-    Card comunityCards[] = new Card[5];
+    private Card comunityCards[] = new Card[5];
 
     private boolean flopDealt = false;
     private boolean TurnDealt = false;
