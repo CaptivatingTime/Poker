@@ -11,6 +11,7 @@ public class PokerHand extends Hand   {
      Card PokerHandTrimmed[] = new Card[5];
 
     int TwoPairs[] = new int[2];
+    int FullHouse[] = new int[2];
     private int pairStrength    = 0;
     private int kicker1         = 0;
     private int kicker2         = 0;
@@ -127,6 +128,25 @@ public class PokerHand extends Hand   {
 
     }
 
+    private void collectFullHouse(){
+            int highestTrips = 0;
+            int highestPair = 0;
+        for (Map.Entry<Integer, Integer> entry : nominalAmount.entrySet()){
+            if (entry.getValue() == 3){
+                if (entry.getKey() > highestTrips){
+                    highestTrips = entry.getKey();
+                }
+                this.FullHouse[0] = highestTrips;
+            }
+            if (entry.getValue() == 2){
+                if (entry.getKey() > highestPair){
+                    highestPair = entry.getKey();
+                }               
+                this.FullHouse[1] = highestPair;
+            }
+        }
+    }
+
     private boolean checkFullHouse(){
         boolean checker = false;
         boolean hasTrips = false;
@@ -140,6 +160,7 @@ public class PokerHand extends Hand   {
             }
         }
         if (hasTrips && hasPair){
+            collectFullHouse();
             checker = true;
         }
         return checker;
@@ -432,6 +453,9 @@ public class PokerHand extends Hand   {
     }
     int[] getTwoPairValue (){
         return this.TwoPairs;
+    }
+    int[] getFullHouse (){
+        return this.FullHouse;
     }
     int getPairValue(){
         return this.pairStrength;

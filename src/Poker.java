@@ -48,8 +48,8 @@ public class Poker {
      int playerWinAmount = 0;
      int dealerWinAmount = 0;
      int push = 0;
-    // while (times <100000){
-        times++;
+     //while (times <100000){
+        //times++;
         Deck deckOfCards = new Deck();
         Hand dealerHand = new Hand();
         Hand playerHand = new Hand();
@@ -136,7 +136,8 @@ public class Poker {
             int [] twoPairs_Player = playerPokerHand.getTwoPairValue();
             int [] twoPairs_Dealer = dealerrPokerHand.getTwoPairValue();
 
-            
+            int [] fullHouse_Player = playerPokerHand.getFullHouse();
+            int [] fullHouse_Dealer = dealerrPokerHand.getFullHouse();          
 
             int[] validKickers_Player  = playerPokerHand.validateKicker(playerKickers);
             int[] validKickers_Dealer = dealerrPokerHand.validateKicker(dealerKickers);
@@ -148,16 +149,18 @@ public class Poker {
             }else if (playerPokerHand.getPairValue() < dealerrPokerHand.getPairValue()){
                 System.out.println("DEALER WINS with better pair!!!");
                 dealerWinAmount++;
-            }else if (combination_player == "Two Pairs" && combination_dealer == "Two Pairs"){
+
+            // Salīdzina pārus, ja abiem ir divu pāru kombinācija
+            }else if (combination_player.equals("Two Pairs") && combination_dealer.equals("Two Pairs")){
                 int twoPairKicker_Player = playerPokerHand.getTwoPairKicker();
                 int twoPairKicker_Dealer = dealerrPokerHand.getTwoPairKicker();
-                // Salīdzina pārus, ja abiem ir divu pāru kombinācija
+                
                 if(twoPairs_Player[0] > twoPairs_Dealer[0]){
                     System.out.println("PLAYER WINS with better TWO pairs!!!");
                     playerWinAmount++;
                 }else if (twoPairs_Player[0] < twoPairs_Dealer[0]){
-
                     System.out.println("DEALER WINS with better TWO pairs!!!");
+                    dealerWinAmount++;
                 }else if (twoPairs_Player[1] > twoPairs_Dealer[1]){
 
                     System.out.println("PLAYER WINS with better TWO pairs!!!");
@@ -165,6 +168,7 @@ public class Poker {
                 }else if(twoPairs_Player[1] < twoPairs_Dealer[1]){
                     
                     System.out.println("DEALER WINS with better TWO pairs!!!");
+                    dealerWinAmount++;
                 }else if ( twoPairKicker_Player > twoPairKicker_Dealer){
 
                     System.out.println("PLAYER WINS with same TWO pairs but better kicker!!!");
@@ -172,12 +176,35 @@ public class Poker {
                 }else if (twoPairKicker_Player < twoPairKicker_Dealer){
 
                     System.out.println("DEALER WINS with same TWO pairs but better kicker!!!");
-                    playerWinAmount++;
+                    dealerWinAmount++;
                 }else{
                     System.out.println("Same two pairs and same kicker. It is a push!");
                     push++;
                 }
+            // salīdzina full house, ja abiem ir šīs kombinācijas
+            }else if(combination_player.equals("Full House") && combination_dealer.equals("Full House")){
+/*                 if (playerPokerHand.getRank() == 7){
+                    times = 100000;
+                }  */
+                if(fullHouse_Player[0] > fullHouse_Dealer[0]){
+                    System.out.println("PLAYER WINS with better Full House!!!");
+                    playerWinAmount++;
+                }else if(fullHouse_Player[0] < fullHouse_Dealer[0]){
+                    System.out.println("DEALER WINS with better Full House!!!");
+                    dealerWinAmount++;
+                }else if(fullHouse_Player[1] > fullHouse_Dealer[1]){
+                    System.out.println("PLAYER WINS with better Full House!!!");
+                    playerWinAmount++;                  
+                }else if(fullHouse_Player[1] < fullHouse_Dealer[1]){
+                    System.out.println("DEALER WINS with better Full House!!!");
+                    dealerWinAmount++;                   
+                }else{
+                    System.out.println("Same Full Houses. It is a push!");
+                    push++;                 
+                }
+
             }else{
+
 
             String winner = compareKickers(validKickers_Player[0], validKickers_Player[1], validKickers_Dealer[0], validKickers_Dealer[1]);
             if (winner == "player"){
