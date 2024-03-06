@@ -24,10 +24,10 @@ public class Poker {
             } else if(player2 < dealer2){
                 winner = "dealer";
                 winningKicker = dealer2;
+            } else if ( player2 == dealer2){
+                winner = "Push";
             }
-        } else if(player1 == dealer1){
-            winner = "Push";
-        }
+        } 
         return winner;
 
     }
@@ -49,7 +49,7 @@ public class Poker {
      int dealerWinAmount = 0;
      int push = 0;
      //while (times <100000){
-        //times++;
+        times++;
         Deck deckOfCards = new Deck();
         Hand dealerHand = new Hand();
         Hand playerHand = new Hand();
@@ -213,6 +213,9 @@ public class Poker {
                 dealerWinAmount++;
             }else{
                 push++;
+            }
+            if (winner.equals("unknown")){
+                times = 100000;
             }
             System.out.println(winner + " wins with kicker ");
             }
