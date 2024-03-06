@@ -48,7 +48,7 @@ public class Poker {
      int playerWinAmount = 0;
      int dealerWinAmount = 0;
      int push = 0;
-     while (times <100000){
+    // while (times <100000){
         times++;
         Deck deckOfCards = new Deck();
         Hand dealerHand = new Hand();
@@ -114,16 +114,16 @@ public class Poker {
         if(playerPokerHand.getRank() > dealerrPokerHand.getRank()){
             System.out.println("\nPLAYER WINS!!!");
             playerWinAmount++;
-              if (playerPokerHand.getRank() == 7){
+/*               if (playerPokerHand.getRank() == 7){
                 times = 100000;
-            }  
+            }   */
 
         }else if (playerPokerHand.getRank() < dealerrPokerHand.getRank()){
             System.out.println("\nDealer wins :( ");
             dealerWinAmount++;
-              if (dealerrPokerHand.getRank() == 7){
+/*               if (dealerrPokerHand.getRank() == 7){
                 times = 100000;
-            }  
+            }   */
 
 
 
@@ -193,11 +193,11 @@ public class Poker {
 
 
 
-        }
+        //}
 
-         System.out.println(times);
+         //System.out.println(times);
     }
-    System.out.println("Player wins: "+ playerWinAmount + "\nDealer Wins: " + dealerWinAmount + "\nPush: " + push);
+    //System.out.println("Player wins: "+ playerWinAmount + "\nDealer Wins: " + dealerWinAmount + "\nPush: " + push);
         //dealerrPoekrHand.checkPair();
         //dealerrPoekrHand.checkTwoPairs();
         //if (dealerrPoekrHand.checkStraight(dealerrPoekrHand.getPokerHand())){
