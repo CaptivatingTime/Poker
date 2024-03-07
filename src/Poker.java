@@ -4,6 +4,8 @@ import java.util.*;
 public class Poker {
 
 
+    
+
     public static String compareKickers(int player1, int player2, int dealer1, int dealer2) {
         String winner = "unknown";
         int winningKicker = 0;
@@ -48,7 +50,7 @@ public class Poker {
      int playerWinAmount = 0;
      int dealerWinAmount = 0;
      int push = 0;
-     //while (times <100000){
+     //while (times <200000){
         times++;
         Deck deckOfCards = new Deck();
         Hand dealerHand = new Hand();

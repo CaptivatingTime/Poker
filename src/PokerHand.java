@@ -183,13 +183,7 @@ public class PokerHand extends Hand   {
         return checker;
     }
 
-    private boolean checkRoyal() {
-        boolean checker = false;
-        if (hasAce & isStraightFlush){
-            checker = true;
-        }
-        return checker;
-    }
+
 
 
 
