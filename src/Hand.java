@@ -11,7 +11,7 @@ public class Hand {
         String[] pictures = {"J", "Q", "K", "A"};
         int i = 11;
         for (String picture : pictures){
-            pictureNominals.put(i, picture);
+            this.pictureNominals.put(i, picture);
             i++;
         }
      }
@@ -19,10 +19,10 @@ public class Hand {
       String numToPicture(Card [] cardCollection, int value, int i){
         String handString = "";
         if (value >= 11){
-            
+            createPictureNominals();
             String picture = pictureNominals.get(value);
             
-             handString = picture + " " + cardCollection[i].getSuit();
+             handString = picture + " of " + cardCollection[i].getSuit();
         }else{
              handString = cardCollection[i].getValue() + " " + cardCollection[i].getSuit();
         }
