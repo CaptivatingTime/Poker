@@ -66,7 +66,7 @@ public class PokerHand extends Hand   {
         this.isFullHouse = checkFullHouse();
 
         if (this.hasAce & this.isStraightFlush){
-            message = "Royal";
+            message = "Royal Flush";
             this.combinationRank = 10;
             return message;
         }
@@ -262,6 +262,7 @@ public class PokerHand extends Hand   {
         int counter          = 0;
         int straightStartPos = 0;
         int straightEndtPos  = 0;
+        
         int reqAmount = 0;
         boolean checker = false;
 
