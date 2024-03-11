@@ -30,10 +30,10 @@ public class Player {
         }
         if(dealerQualifies){
             totalWin  = this.balance + ante + ante * antePayout + playBet;
-            this.balance = totalWin;
+            this.balance = this.balance + totalWin;
         }else{
             totalWin = this.balance - ante  + playBet;
-            this.balance = totalWin;
+            this.balance = this.balance + totalWin;
         }
         return totalWin;
         
