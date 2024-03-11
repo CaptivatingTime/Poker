@@ -1,6 +1,9 @@
 import java.util.*;
 
+//import org.json.simple.JSONArray;
+//import org.json.simple.JSONObject;
 
+import java.io.FileWriter;
 public class Poker {
 
 
@@ -66,7 +69,11 @@ public class Poker {
      String userName = "";
      String decision = "";
      
+     
      Scanner sc = new Scanner(System.in);
+
+    //Gson gson = new Gson();
+
      Player newPlayer = new Player();
 
      while (playing){
@@ -119,12 +126,12 @@ public class Poker {
 
 
         
-        System.out.println("Players hand: " + playerCard1 + " and " + playerCard2 );
+        System.out.println("\nPlayers hand: " + playerCard1 + " and " + playerCard2 );
         //Thread.sleep(2000);
         //System.out.println("Dealers hand: " + dealerCard1 + " and " + dealerCard2+ "\n");
 
         if(newPlayer.getBalance() >= ante + ante * 4){
-            System.out.print("What is your decision? (x4, x3, check)?: ");
+            System.out.print("\nWhat is your decision? (x4, x3, check)?: ");
         }else if (newPlayer.getBalance() >= ante + ante * 3){
             System.out.print("What is your decision? (x3, check): ");
         }else{
@@ -156,7 +163,7 @@ public class Poker {
         Thread.sleep(2000);
         newComunity.dealFlop(deckOfCards);
         String flop = newComunity.getComunityString();
-        System.out.println("Flop: " + flop);
+        System.out.println("\nFlop: " + flop);
         if (!playBetPlaced){
             if (newPlayer.getBalance() >= ante + ante * 2){
                 System.out.print("What is your decision? (x2, check)?: ");
@@ -182,7 +189,7 @@ public class Poker {
         Thread.sleep(2000);
         newComunity.dealTurnandRiver(deckOfCards);
         String comunityCards = newComunity.getComunityString();
-        System.out.println("Your hand: " + playerCard1 + " and " + playerCard2 );
+        System.out.println("\nYour hand: " + playerCard1 + " and " + playerCard2 );
         System.out.println("Comunity: " + comunityCards + "\n");
 
         PokerHand playerPokerHand = new PokerHand(playerHand, newComunity);
@@ -226,7 +233,8 @@ public class Poker {
                 
                 System.out.println("\nPLAYER WINS!!!");
                 playerWinAmount++;
-                newPlayer.addBalance(ante, playBet, combination_player, dealerQualifies);
+                totalWin = newPlayer.addBalance(ante, playBet, combination_player, dealerQualifies);
+                System.out.println("You win: " + totalWin);
     /*               if (playerPokerHand.getRank() == 7){
                     times = 100000;
                 }   */
@@ -381,6 +389,7 @@ public class Poker {
         decision = sc.nextLine();
         if (decision.equals("n")){
             playing = false;
+            sc.close();
         }
         }
 

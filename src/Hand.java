@@ -22,7 +22,7 @@ public class Hand {
             createPictureNominals();
             String picture = pictureNominals.get(value);
             
-             handString = picture + " of " + cardCollection[i].getSuit();
+             handString = picture + " " + cardCollection[i].getSuit();
         }else{
              handString = cardCollection[i].getValue() + " " + cardCollection[i].getSuit();
         }
