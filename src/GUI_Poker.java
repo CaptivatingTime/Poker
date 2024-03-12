@@ -1,9 +1,8 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
+
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -47,7 +46,11 @@ public class GUI_Poker extends JFrame {
         return resized;
     }
     GUI_Poker(){
+
+        ImageIcon icon = new ImageIcon("icon.png");
+
         this.setTitle("Poker");
+        this.setIconImage(icon.getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(500,500);
         this.setLayout(new BorderLayout());
@@ -72,15 +75,16 @@ public class GUI_Poker extends JFrame {
         JPanel panel4 = new JPanel();
         JPanel panel5 = new JPanel();
         
-        this.panel1.setBackground(Color.lightGray);
-        this.panel2.setBackground(Color.green);
-        this.panel3.setBackground(Color.lightGray);
+        this.panel1.setBackground(new Color(200,198,175));
+        this.panel2.setBackground(new Color(91,168,121));
+        this.panel3.setBackground(new Color(200,198,175));
         //panel3.setBackground(Color.yellow);
         //panel4.setBackground(Color.magenta);
         //panel5.setBackground(Color.blue);
 
         this.panel2.setLayout(new GridBagLayout());
 
+        
         this.panel1.setPreferredSize(new Dimension(100,100));
 		this.panel2.setPreferredSize(new Dimension(150,100));
 		this.panel3.setPreferredSize(new Dimension(150,100));
