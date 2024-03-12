@@ -21,19 +21,30 @@ public class Comunity extends Hand {
         this.TurnDealt = true;
     }
 
-    String getComunityString(){
+    String getComunityString(GUI_Poker gui){
         createPictureNominals();
-        
+        int showCardNo = 0;
+        String card = "";
         String comunityString = "";
         if (TurnDealt == false){
+            showCardNo = 5;
             for (int i = 0; i<=2; i++){
                 int cardValue = this.comunityCards[i].getValue();
-                comunityString = comunityString + " " + numToPicture(this.comunityCards,cardValue, i);
+                card = numToPicture(this.comunityCards,cardValue, i);
+                gui.showCard(card,showCardNo);
+                showCardNo ++;
+                comunityString = comunityString + " " + card;
             }
         }else{
+            showCardNo = 8;
             for (int i = 0; i<=4; i++){
                 int cardValue = this.comunityCards[i].getValue();
-                comunityString =  comunityString + " " + numToPicture(this.comunityCards,cardValue, i);
+                card = numToPicture(this.comunityCards,cardValue, i);
+                if (i > 2){
+                    gui.showCard(card,showCardNo);
+                    showCardNo ++;                   
+                }
+                comunityString = comunityString + " " + card;
             }           
         }
         return comunityString;

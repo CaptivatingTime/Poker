@@ -29,10 +29,10 @@ public class Player {
             antePayout = this.Payouts.get(combination);
         }
         if(dealerQualifies){
-            totalWin  = this.balance + ante + ante * antePayout + playBet;
+            totalWin  = ante + ante * antePayout + playBet;
             this.balance = this.balance + totalWin;
         }else{
-            totalWin = this.balance - ante  + playBet;
+            totalWin =  playBet + ante;
             this.balance = this.balance + totalWin;
         }
         return totalWin;
