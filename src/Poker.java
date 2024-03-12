@@ -73,7 +73,7 @@ public class Poker {
      
      Scanner sc = new Scanner(System.in);
 
-    //Gson gson = new Gson();
+    GUI_Poker gui = new GUI_Poker();
 
      Player newPlayer = new Player();
 
@@ -85,6 +85,7 @@ public class Poker {
         playBet = 0;
         totalBet = 0;
         totalWin = 0;
+        
         //times++;
         Deck deckOfCards = new Deck();
         
@@ -125,9 +126,13 @@ public class Poker {
 
         
 
-
-        
         System.out.println("\nPlayers hand: " + playerCard1 + " and " + playerCard2 );
+        gui.showCard(playerCard1, 1);
+        gui.showCard("facedown", 2);
+        //Thread.sleep(2000);
+        gui.showCard(playerCard2, 3);
+        gui.showCard("facedown", 4);
+        
         //Thread.sleep(2000);
         //System.out.println("Dealers hand: " + dealerCard1 + " and " + dealerCard2+ "\n");
 
@@ -163,7 +168,7 @@ public class Poker {
         System.out.println("Dealing flop...");
         Thread.sleep(2000);
         newComunity.dealFlop(deckOfCards);
-        String flop = newComunity.getComunityString();
+        String flop = newComunity.getComunityString(gui);
         System.out.println("\nFlop: " + flop);
         if (!playBetPlaced){
             if (newPlayer.getBalance() >= ante + ante * 2){
@@ -189,7 +194,7 @@ public class Poker {
         System.out.println("Dealing turn and river...");
         Thread.sleep(2000);
         newComunity.dealTurnandRiver(deckOfCards);
-        String comunityCards = newComunity.getComunityString();
+        String comunityCards = newComunity.getComunityString(gui);
         System.out.println("\nYour hand: " + playerCard1 + " and " + playerCard2 );
         System.out.println("Comunity: " + comunityCards + "\n");
 
@@ -227,6 +232,8 @@ public class Poker {
         if (!folded){
             Thread.sleep(2000);
             System.out.println("Dealers hand: " + dealerCard1 + " and " + dealerCard2+ "\n");
+            gui.showCard(dealerCard1,2);
+            gui.showCard(dealerCard2,4);
             Thread.sleep(2000);
             String combination_dealer = dealerrPokerHand.printCombination("Dealers");
             Thread.sleep(3000);
@@ -391,6 +398,8 @@ public class Poker {
         if (decision.equals("n")){
             playing = false;
             sc.close();
+        }else{
+            gui.removeCards();
         }
         }
 
