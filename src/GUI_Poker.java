@@ -52,7 +52,7 @@ public class GUI_Poker extends JFrame {
         this.setTitle("Poker");
         this.setIconImage(icon.getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(500,500);
+        this.setSize(800,500);
         this.setLayout(new BorderLayout());
         
 
@@ -63,11 +63,11 @@ public class GUI_Poker extends JFrame {
         this.card2.setBounds(100,100,70,100);
         this.card3.setBounds(100,100,70,100);
         this.card4.setBounds(100,100,70,100);
-        this.card5.setBounds(100,100,70,100);
-        this.card6.setBounds(100,100,70,100);
-        this.card7.setBounds(100,100,70,100);
-        this.card8.setBounds(100,100,70,100);
-        this.card9.setBounds(100,100,70,100);
+        this.card5.setBounds(100,100,100,150);
+        this.card6.setBounds(100,100,100,150);
+        this.card7.setBounds(100,100,100,150);
+        this.card8.setBounds(100,100,100,150);
+        this.card9.setBounds(100,100,100,150);
    
 
         
@@ -81,13 +81,13 @@ public class GUI_Poker extends JFrame {
         //panel3.setBackground(Color.yellow);
         //panel4.setBackground(Color.magenta);
         //panel5.setBackground(Color.blue);
-
+        this.panel1.setLayout(new GridBagLayout());
         this.panel2.setLayout(new GridBagLayout());
-
+        this.panel3.setLayout(new GridBagLayout());
         
-        this.panel1.setPreferredSize(new Dimension(100,100));
+        this.panel1.setPreferredSize(new Dimension(100,110));
 		this.panel2.setPreferredSize(new Dimension(150,100));
-		this.panel3.setPreferredSize(new Dimension(150,100));
+		this.panel3.setPreferredSize(new Dimension(150,110));
 		panel4.setPreferredSize(new Dimension(100,100));
 		panel5.setPreferredSize(new Dimension(100,100));
 
