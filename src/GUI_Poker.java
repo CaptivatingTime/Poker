@@ -16,19 +16,19 @@ import javax.swing.JPanel;
 public class GUI_Poker extends JFrame {
 
 
-    private JPanel panel3 = new JPanel();
-    private JPanel panel2 = new JPanel();
-    private JPanel panel1 = new JPanel();
+    private JPanel panelPlayer = new JPanel();
+    private JPanel panelBoard  = new JPanel();
+    private JPanel panelDealer = new JPanel();
         
-    private JLabel card1 = new JLabel();
-    private JLabel card2 = new JLabel();
-    private JLabel card3 = new JLabel();
-    private JLabel card4 = new JLabel();
-    private JLabel card5 = new JLabel();
-    private JLabel card6 = new JLabel();
-    private JLabel card7 = new JLabel();
-    private JLabel card8 = new JLabel();
-    private JLabel card9 = new JLabel();
+    private JLabel cardPlayer1 = new JLabel();
+    private JLabel cardDealer1 = new JLabel();
+    private JLabel cardPlayer2 = new JLabel();
+    private JLabel cardDealer2 = new JLabel();
+    private JLabel cardBoard1  = new JLabel();
+    private JLabel cardBoard2  = new JLabel();
+    private JLabel cardBoard3  = new JLabel();
+    private JLabel cardBoard4  = new JLabel();
+    private JLabel cardBoard5  = new JLabel();
 
 
 
@@ -59,15 +59,15 @@ public class GUI_Poker extends JFrame {
 
 
         
-        this.card1.setBounds(100,100,70,100);
-        this.card2.setBounds(100,100,70,100);
-        this.card3.setBounds(100,100,70,100);
-        this.card4.setBounds(100,100,70,100);
-        this.card5.setBounds(100,100,100,150);
-        this.card6.setBounds(100,100,100,150);
-        this.card7.setBounds(100,100,100,150);
-        this.card8.setBounds(100,100,100,150);
-        this.card9.setBounds(100,100,100,150);
+        this.cardPlayer1.setBounds(100,100,70,100);
+        this.cardDealer1.setBounds(100,100,70,100);
+        this.cardPlayer2.setBounds(100,100,70,100);
+        this.cardDealer2.setBounds(100,100,70,100);
+        this.cardBoard1.setBounds(100,100,100,150);
+        this.cardBoard2.setBounds(100,100,100,150);
+        this.cardBoard3.setBounds(100,100,100,150);
+        this.cardBoard4.setBounds(100,100,100,150);
+        this.cardBoard5.setBounds(100,100,100,150);
    
 
         
@@ -75,25 +75,25 @@ public class GUI_Poker extends JFrame {
         JPanel panel4 = new JPanel();
         JPanel panel5 = new JPanel();
         
-        this.panel1.setBackground(new Color(200,198,175));
-        this.panel2.setBackground(new Color(91,168,121));
-        this.panel3.setBackground(new Color(200,198,175));
+        this.panelDealer.setBackground(new Color(200,198,175));
+        this.panelBoard.setBackground(new Color(91,168,121));
+        this.panelPlayer.setBackground(new Color(200,198,175));
         //panel3.setBackground(Color.yellow);
         //panel4.setBackground(Color.magenta);
         //panel5.setBackground(Color.blue);
-        this.panel1.setLayout(new GridBagLayout());
-        this.panel2.setLayout(new GridBagLayout());
-        this.panel3.setLayout(new GridBagLayout());
+        this.panelDealer.setLayout(new GridBagLayout());
+        this.panelBoard.setLayout(new GridBagLayout());
+        this.panelPlayer.setLayout(new GridBagLayout());
         
-        this.panel1.setPreferredSize(new Dimension(100,110));
-		this.panel2.setPreferredSize(new Dimension(150,100));
-		this.panel3.setPreferredSize(new Dimension(150,110));
+        this.panelDealer.setPreferredSize(new Dimension(100,110));
+		this.panelBoard.setPreferredSize(new Dimension(150,100));
+		this.panelPlayer.setPreferredSize(new Dimension(150,110));
 		panel4.setPreferredSize(new Dimension(100,100));
 		panel5.setPreferredSize(new Dimension(100,100));
 
-        this.add(this.panel1,BorderLayout.NORTH);
-        this.add(this.panel2,BorderLayout.CENTER);
-        this.add(this.panel3,BorderLayout.SOUTH);
+        this.add(this.panelDealer,BorderLayout.NORTH);
+        this.add(this.panelBoard,BorderLayout.CENTER);
+        this.add(this.panelPlayer,BorderLayout.SOUTH);
         
 
         this.setVisible(true);
@@ -112,51 +112,51 @@ public class GUI_Poker extends JFrame {
     void showCard(String card, int pos){
         switch (pos) {
             case 1:
-            insertCard(card, card1, panel3);
+            insertCard(card, cardPlayer1, panelPlayer);
                 break;
         
             case 2:
-            insertCard(card, card2, panel1);               
+            insertCard(card, cardDealer1, panelDealer);               
                 break;
             case 3:
-            insertCard(card, card3, panel3); 
+            insertCard(card, cardPlayer2, panelPlayer); 
                 break;      
             case 4:
-            insertCard(card, card4, panel1);   
+            insertCard(card, cardDealer2, panelDealer);   
                 break;  
                 
             case 5:
-            insertCard(card, card5, panel2);  
+            insertCard(card, cardBoard1, panelBoard);  
                 break;
         
             case 6:
-            insertCard(card, card6, panel2);  
+            insertCard(card, cardBoard2, panelBoard);  
                 break;
             case 7:
-            insertCard(card, card7, panel2);  
+            insertCard(card, cardBoard3, panelBoard);  
                 break;    
             case 8:
-            insertCard(card, card8, panel2);  
+            insertCard(card, cardBoard4, panelBoard);  
                 break;  
             case 9:
-            insertCard(card, card9, panel2);  
+            insertCard(card, cardBoard5, panelBoard);  
                 break;                                              
         }
     }
     void removeCards(){
-        this.panel1.removeAll();
-        this.panel2.removeAll();
-        this.panel3.removeAll();
+        this.panelDealer.removeAll();
+        this.panelBoard.removeAll();
+        this.panelPlayer.removeAll();
 
 
 
-        this.panel1.repaint();
-        this.panel2.repaint();
-        this.panel3.repaint();
+        this.panelDealer.repaint();
+        this.panelBoard.repaint();
+        this.panelPlayer.repaint();
         
-        this.panel1.revalidate();
-        this.panel2.revalidate();
-        this.panel3.revalidate();
+        this.panelDealer.revalidate();
+        this.panelBoard.revalidate();
+        this.panelPlayer.revalidate();
         
        
     }
