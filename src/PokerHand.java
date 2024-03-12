@@ -432,7 +432,7 @@ public class PokerHand extends Hand   {
          }
     }
     
-    void print(String side){
+    void print(String side, GUI_Poker gui){
         String pokerHandString = "" ;
         createPictureNominals();
         for (int i = 0; i < 7; i++){

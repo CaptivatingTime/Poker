@@ -1,16 +1,19 @@
 //package com.poker;
 import java.util.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 //import org.json.simple.JSONArray;
 //import org.json.simple.JSONObject;
 
 import java.io.FileWriter;
-public class Poker {
+public class Poker  {
 
 
     
 
     public static String compareKickers(int player1, int player2, int dealer1, int dealer2) {
+        
         String winner = "unknown";
         int winningKicker = 0;
 
@@ -243,6 +246,7 @@ public class Poker {
                 playerWinAmount++;
                 totalWin = newPlayer.addBalance(ante, playBet, combination_player, dealerQualifies);
                 System.out.println("You win: " + totalWin);
+                gui.highlightWinner("player");
     /*               if (playerPokerHand.getRank() == 7){
                     times = 100000;
                 }   */
@@ -251,6 +255,7 @@ public class Poker {
                 System.out.println("\nDealer wins :( ");
                 dealerWinAmount++;
                 newPlayer.deductBalance(totalBet);
+                gui.highlightWinner("dealer");
     /*               if (dealerrPokerHand.getRank() == 7){
                     times = 100000;
                 }   */
@@ -278,11 +283,13 @@ public class Poker {
                     playerWinAmount++;
                     totalWin = newPlayer.addBalance(ante, playBet, combination_player, dealerQualifies);
                     System.out.println("You win: " + totalWin);
+                    gui.highlightWinner("player");
 
                 }else if (playerPokerHand.getPairValue() < dealerrPokerHand.getPairValue()){
                     System.out.println("DEALER WINS with better pair!!!");
                     dealerWinAmount++;
                     newPlayer.deductBalance(totalBet);
+                    gui.highlightWinner("dealer");
 
                 // Salīdzina pārus, ja abiem ir divu pāru kombinācija
                 }else if (combination_player.equals("Two Pairs") && combination_dealer.equals("Two Pairs")){
@@ -294,11 +301,13 @@ public class Poker {
                         playerWinAmount++;
                         totalWin = newPlayer.addBalance(ante, playBet, combination_player, dealerQualifies);
                         System.out.println("You win: " + totalWin);
+                        gui.highlightWinner("player");
 
                     }else if (twoPairs_Player[0] < twoPairs_Dealer[0]){
                         System.out.println("DEALER WINS with better TWO pairs!!!");
                         dealerWinAmount++;
                         newPlayer.deductBalance(totalBet);
+                        gui.highlightWinner("dealer");
 
                     }else if (twoPairs_Player[1] > twoPairs_Dealer[1]){
 
@@ -306,12 +315,14 @@ public class Poker {
                         playerWinAmount++;
                         totalWin = newPlayer.addBalance(ante, playBet, combination_player, dealerQualifies);
                         System.out.println("You win: " + totalWin);
+                        gui.highlightWinner("player");
 
                     }else if(twoPairs_Player[1] < twoPairs_Dealer[1]){
                         
                         System.out.println("DEALER WINS with better TWO pairs!!!");
                         dealerWinAmount++;
                         newPlayer.deductBalance(totalBet);
+                        gui.highlightWinner("dealer");
 
                     }else if ( twoPairKicker_Player > twoPairKicker_Dealer){
 
@@ -319,12 +330,14 @@ public class Poker {
                         playerWinAmount++;
                         totalWin = newPlayer.addBalance(ante, playBet, combination_player, dealerQualifies);
                         System.out.println("You win: " + totalWin);
+                        gui.highlightWinner("player");
 
                     }else if (twoPairKicker_Player < twoPairKicker_Dealer){
 
                         System.out.println("DEALER WINS with same TWO pairs but better kicker!!!");
                         dealerWinAmount++;
                         newPlayer.deductBalance(totalBet);
+                        gui.highlightWinner("dealer");
 
                     }else{
                         System.out.println("Same two pairs and same kicker. It is a push!");
@@ -340,22 +353,26 @@ public class Poker {
                         playerWinAmount++;
                         totalWin = newPlayer.addBalance(ante, playBet, combination_player, dealerQualifies);
                         System.out.println("You win: " + totalWin);
+                        gui.highlightWinner("player");
 
                     }else if(fullHouse_Player[0] < fullHouse_Dealer[0]){
                         System.out.println("DEALER WINS with better Full House!!!");
                         dealerWinAmount++;
                         newPlayer.deductBalance(totalBet);
+                        gui.highlightWinner("dealer");
 
                     }else if(fullHouse_Player[1] > fullHouse_Dealer[1]){
                         System.out.println("PLAYER WINS with better Full House!!!");
                         playerWinAmount++;      
                         totalWin = newPlayer.addBalance(ante, playBet, combination_player, dealerQualifies);
                         System.out.println("You win: " + totalWin);
+                        gui.highlightWinner("player");
 
                     }else if(fullHouse_Player[1] < fullHouse_Dealer[1]){
                         System.out.println("DEALER WINS with better Full House!!!");
                         dealerWinAmount++;    
                         newPlayer.deductBalance(totalBet);   
+                        gui.highlightWinner("dealer");
 
                     }else{
                         System.out.println("Same Full Houses. It is a push!");
@@ -372,11 +389,13 @@ public class Poker {
                     totalWin = newPlayer.addBalance(ante, playBet, combination_player, dealerQualifies);
                     System.out.println(winner + " wins with kicker ");
                     System.out.println("You win: " + totalWin);
+                    gui.highlightWinner("player");
 
                 }else if (winner == "dealer"){
                     dealerWinAmount++;
                     System.out.println(winner + " wins with kicker ");
                     newPlayer.deductBalance(totalBet);
+                    gui.highlightWinner("dealer");
                 }else{
                     push++;
                     System.out.println("It is a push");
@@ -391,8 +410,9 @@ public class Poker {
         }else{
             System.out.println("You folded, dealer wins");
             newPlayer.deductBalance(totalBet);
+            gui.highlightWinner("dealer");
         }
-
+        
         System.out.println("Are you playing again? (y/n): ");
         decision = sc.nextLine();
         if (decision.equals("n")){
@@ -414,4 +434,5 @@ public class Poker {
         
         //System.out.println(deckOfCards.getDeck());
     }
+
 }
