@@ -47,7 +47,7 @@ public class GUI_Poker extends JFrame {
         return resized;
     }
     GUI_Poker(){
-        
+        this.setTitle("Poker");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(500,500);
         this.setLayout(new BorderLayout());
