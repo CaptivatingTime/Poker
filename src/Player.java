@@ -21,18 +21,21 @@ public class Player {
         this.name = name;
     }
     double addBalance(double ante, double playBet, String combination, boolean dealerQualifies){
-        double antePayout = 0;
+        double blindPayout = 0;
         double totalWin   = 0;
+        double anteBet    = ante/2;
+        double blindBet   = ante/2;
         if (this.Payouts.get(combination) == null){
-             antePayout = 0;
+            blindPayout = 0;
         }else{
-            antePayout = this.Payouts.get(combination);
+            blindPayout = this.Payouts.get(combination);
         }
         if(dealerQualifies){
-            totalWin  = ante + ante * antePayout + playBet;
+            
+            totalWin  = anteBet + anteBet + blindBet + blindBet * blindPayout + playBet;
             this.balance = this.balance + totalWin;
         }else{
-            totalWin =  playBet + ante;
+            totalWin =  anteBet + blindBet + blindBet * blindPayout + playBet;
             this.balance = this.balance + totalWin;
         }
         return totalWin;
